@@ -1,0 +1,148 @@
+<?php
+    
+    include 'dbconnect.php';
+    
+    $cookie_name = "user";
+    if(!isset($_COOKIE[$cookie_name])) {
+            echo "<script>alert('Login Error'); window.location.href='index.html';</script>";
+    }
+
+    if(isset($_POST['elimina'])){
+        $db = new dbconnect();
+        $id = $_POST['id_attrezzatura'];
+        $nome = $_POST['nome_attrezzatura'];
+        $id_torretta = $_POST['id_torretta'];
+        $sql = "DELETE FROM `UTILIZZO` WHERE `IdMezzoDiSoccorso`='".$id."' AND `Nome`='".$nome."'";
+        $result = $db->query($sql);
+        echo "<script>window.location.href='visualizzamezzidisoccorso.php?submit=" . $id_torretta . "';</script>";
+        $db->close();
+    }
+
+    if(isset($_POST['aggiungi'])){
+        $db = new dbconnect();
+        $id = $_POST['id'];
+        $nome = $_POST['nome'];
+        $oggetto=$_POST['oggetto'];
+        $id_torretta = $_POST['id_torretta'];
+        if($oggetto == "remi"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Remi` = '1' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }else if($oggetto == "salvagente"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Salvagente` = '1' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }else if($oggetto == "ancorotto"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Ancorotto` = '1' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }
+        $result = $db->query($sql);
+        echo "<script>window.location.href='visualizzamezzidisoccorso.php?submit=" . $id_torretta . "';</script>";
+        $db->close();
+    }
+
+    if(isset($_POST['togli'])){
+        $db = new dbconnect();
+        $id = $_POST['id'];
+        $nome = $_POST['nome'];
+        $oggetto=$_POST['oggetto'];
+        $id_torretta = $_POST['id_torretta'];
+        if($oggetto == "remi"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Remi` = '0' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }else if($oggetto == "salvagente"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Salvagente` = '0' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }else if($oggetto == "ancorotto"){
+            $sql = "UPDATE `MEZZIDISOCCORSO` SET `Ancorotto` = '0' WHERE `Id`='".$id."' AND `Nome`='".$nome."'";
+        }
+        $result = $db->query($sql);
+        echo "<script>window.location.href='visualizzamezzidisoccorso.php?submit=" . $id_torretta . "';</script>";
+        $db->close();
+    }
+?>
+    <!DOCTYPE html>
+    <html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#d90000" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#910303" />
+        <title>Elenco Mezzi Torretta</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@latest/font/bootstrap-icons.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    </head>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand mb-0 h1" href="#" style="color: #d90000;">
+                        <img src="./img/logo.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+                        Gestionale Servizio Salvataggio
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <body class="text-center">
+        <div class="container">
+            
+            <?php
+            $db = new dbconnect();
+            $id=$_REQUEST['submit'];
+
+            echo "<h1 class='mt-5'>Elenco Mezzi Torretta ".$id."</h1>";
+
+            // Query per ottenere i dati dei dipendenti
+            $sql = "SELECT * FROM UTILIZZO U LEFT JOIN MEZZIDISOCCORSO M ON U.IdMezzoDiSoccorso = M.Id AND U.Nome = M.Nome WHERE U.IdTorretta ='".$id."';"; // Cambia 'dipendenti' con il tuo nome di tabella
+            $result = $db->query($sql);
+            echo "<table class='table table-striped mt-3'>";
+            echo "<thead><tr><th>Nome</th><th>IdMezzo</th><th>Remi</th><th>Salvagente</th><th>Ancorotto</th><th>Elimina</th></tr></thead><tbody>";
+            // Controlla se ci sono risultati
+            if ($result->num_rows > 0) {
+                
+                // Stampa i dati in ogni riga
+                while($row = $result->fetch_assoc()) {
+                    echo "<tr><td>" . $row["Nome"] . "</td><td>" . $row["IdMezzoDiSoccorso"] ."</td>";
+                    if($row["Nome"] == "Moscone"){
+                        if($row["Remi"] == 0){
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='remi'><button class='w-100 btn btn-lg btn-outline-primary' type='submit' name='aggiungi'><i class='material-icons'>rowing</i></button></form></td>";
+                        }else{
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='remi'><button class='w-100 btn btn-lg btn-primary' type='submit' name='togli'><i class='material-icons'>rowing</i></button></form></td>";
+                        }
+                        if($row["Salvagente"] == 0){
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='salvagente'><button class='w-100 btn btn-lg btn-outline-primary' type='submit' name='aggiungi'><i class='material-icons'>support</i></button></form></td>";
+                        }else{
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='salvagente'><button class='w-100 btn btn-lg btn-primary' type='submit' name='togli'><i class='material-icons'>support</i></button></form></td>";
+                        }
+                        if($row["Ancorotto"] == 0){
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='ancorotto'><button class='w-100 btn btn-lg btn-outline-primary' type='submit' name='aggiungi'><i class='material-icons'>anchor</i></button></form></td>";
+                        }else{
+                            echo "<td><form action='' method='POST'><input type='hidden' name='id' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='nome' value='".$row['Nome']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='oggetto' value='ancorotto'><button class='w-100 btn btn-lg btn-primary' type='submit' name='togli'><i class='material-icons'>anchor</i></button></form></td>";
+                        }
+                    }else{
+                        echo "<td></td><td></td><td></td>";
+                    }
+
+                    echo "<td><form action='' method='POST'><input type='hidden' name='id_attrezzatura' value='".$row['IdMezzoDiSoccorso']."'><input type='hidden' name='id_torretta' value='".$id."'><input type='hidden' name='nome_attrezzatura' value='".$row['Nome']."'><button class='w-100 btn btn-lg btn-outline-danger' type='submit' name='elimina'><i class='bi bi-trash'></i></button></form></td></tr>";
+                }
+                echo"<tr><td><form action='assegnamezzodisoccorso.php' method='POST'><button class='w-100 btn btn-lg btn-primary' type='submit' name='IdTorretta' value='".$id."'><i class='bi bi-hammer' style='color: white'></i><h4>Aggiungi</h4></button></form></td></tr>";
+                
+            } else {
+                echo "<tr><td></td><td><h4>Nessun Mezzo trovato</h4></td><td></td></tr>";
+                echo"<tr><td><form action='assegnamezzodisoccorso.php' method='POST'><button class='w-100 btn btn-lg btn-primary' type='submit' name='IdTorretta' value='".$id."'><i class='bi bi-hammer' style='color: white'></i><h4>Aggiungi</h4></button></form></td></tr>";
+            }
+            echo "</tbody></table>";
+
+            // Chiudi la connessione
+            $db->close();
+            ?>
+        </div>
+        <table class="table table-striped mt-3">
+            <tr>
+            <td>
+
+                <div type="button" class="well btn btn-light" style="color: gray">
+                    <a href="torrette.php" style="color: gray">
+                    <i class="bi bi-house" style="color: gray"></i>
+                    <h4>Indietro</h4>
+                    </a>
+                </div>
+            </td>
+            </tr>
+        </table>
+    </body>
+    </html>

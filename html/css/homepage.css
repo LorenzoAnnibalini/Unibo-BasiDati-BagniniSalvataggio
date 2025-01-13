@@ -1,0 +1,41 @@
+body{
+  padding-top: 60px;
+}
+
+/* Stile generale per la griglia dei bottoni */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding-top: 30px;
+}
+
+/* Stile per i bottoni, per rendere uguali altezza e larghezza */
+.custom-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #6c757d;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 20px;
+  aspect-ratio: 1; /* Imposta larghezza e altezza uguali */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.custom-button:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+
+.custom-button i {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+h4 {
+  color: white;
+  margin-top: 10px;
+}
