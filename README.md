@@ -26,14 +26,14 @@ Progetto per una Base di Dati A.A. 2024/25
 >Bisogna modificare due file per far funzionare l'applicativo con il proprio db
 >
 >Il primo file da modificare è dbconnect andando a completare le seguenti righe
->private $dbhost = 'localhost or IPAddress';
+>    private $dbhost = 'localhost or IPAddress';
 >
->private $username = 'user';
+>    private $username = 'user';
 >
->private $password = 'psw';
+>    private $password = 'psw';
 >
->private $dbname = 'db_name';
+>    private $dbname = 'db_name';
 >
 >Il secondo file è login.php sotto il commento "Connessione al database con PDO" completando la seguente riga
 >
->$db = new PDO("mysql:host=localhost;dbname=db_name", "", "");
+>    $db = new PDO("mysql:host=localhost;dbname=db_name", "", "");
