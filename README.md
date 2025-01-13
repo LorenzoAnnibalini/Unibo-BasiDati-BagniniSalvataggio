@@ -20,10 +20,17 @@ Progetto per una Base di Dati A.A. 2024/25
 >
 >All'interno della cartella html è possibile trovare tutto il sorgente dell'applicativo, per eseguire il progetto bisogna predisporre un ambiente web >utilizzando XAMPP.
 >Il database (già popolato con qualche dato di prova) è presente nel file "create_database.sql" all'interno della cartella db.
+
+# Credenziali DB
+>[!IMPORTANT]
+>Bisogna modificare due file per far funzionare l'applicativo con il proprio db
 >
->Le credenziali per accedere al database si trovano nel file dbconnect.php nel quale possono essere modificati i seguenti parametri a proprio piacimento: 
->	
+>Il file da modificare è dbconnect andando a completare le seguenti righe
 >	private $dbhost = 'localhost or IPAddress';
 >        private $username = 'user';
 >        private $password = 'psw';
 >        private $dbname = 'db_name';
+>
+>Il secondo file è login.php sotto il commento "Connessione al database con PDO" completando la seguente riga
+>
+>$db = new PDO("mysql:host=localhost;dbname=db_name", "", "");
