@@ -18,7 +18,8 @@ lo storico degli interventi effettuati e visualizzare i relativi dati statistici
 # Istruzioni
 Le credenziali di login sono user: "test" ; psw: "test" .
 
-All'interno della cartella html è possibile trovare tutto il sorgente dell'applicativo, per eseguire il progetto bisogna predisporre un ambiente web >utilizzando XAMPP.
+All'interno della cartella html è possibile trovare tutto il sorgente dell'applicativo, per eseguire il progetto bisogna predisporre un ambiente web utilizzando XAMPP.
+
 Il database (già popolato con qualche dato di prova) è presente nel file "create_database.sql" all'interno della cartella db.
 
 # Credenziali DB
