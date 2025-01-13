@@ -12,8 +12,6 @@ Progetto per una Base di Dati A.A. 2024/25
 >lo storico degli interventi effettuati e visualizzare i relativi dati statistici.
 
 # Istruzioni
->L'applicativo è stato inserito in un web server pubblico accessibile al seguente link : http://lorenzounibobagnini.altervista.org .
->
 >Le credenziali di login sono user: "test" ; psw: "test" .
 >
 >All'interno della cartella html è possibile trovare tutto il sorgente dell'applicativo, per eseguire il progetto bisogna predisporre un ambiente web >utilizzando XAMPP.
