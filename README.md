@@ -10,3 +10,18 @@ Progetto per una Base di Dati A.A. 2024/25
 >torrette e dipendenti; potranno aggiungere e cambiare gli orari per ogni singola torretta
 >aggiungendo e togliendo i dipendenti a fasce orarie di un’ora l’una ed infine potranno gestire
 >lo storico degli interventi effettuati e visualizzare i relativi dati statistici.
+
+# Istruzioni
+>L'applicativo è stato inserito in un web server pubblico accessibile al seguente link : http://lorenzounibobagnini.altervista.org .
+>
+>Le credenziali di login sono user: "test" ; psw: "test" .
+>
+>All'interno della cartella html è possibile trovare tutto il sorgente dell'applicativo, per eseguire il progetto bisogna predisporre un ambiente web >utilizzando XAMPP.
+>Il database (già popolato con qualche dato di prova) è presente nel file "create_database.sql" all'interno della cartella db.
+>
+>Le credenziali per accedere al database si trovano nel file dbconnect.php nel quale possono essere modificati i seguenti parametri a proprio piacimento: 
+>	
+>	private $dbhost = 'localhost or IPAddress';
+>        private $username = 'user';
+>        private $password = 'psw';
+>        private $dbname = 'db_name';
