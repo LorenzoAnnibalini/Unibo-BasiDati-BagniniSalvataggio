@@ -11,6 +11,9 @@ Progetto per una Base di Dati A.A. 2024/25
 >aggiungendo e togliendo i dipendenti a fasce orarie di un’ora l’una ed infine potranno gestire
 >lo storico degli interventi effettuati e visualizzare i relativi dati statistici.
 
+# [!WARNING] ATTENZIONE
+> Le immagini del logo e della pagina di login presenti nella cartella img sono state tolte
+
 # Istruzioni
 >Le credenziali di login sono user: "test" ; psw: "test" .
 >
