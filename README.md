@@ -1,5 +1,5 @@
 # Unibo-BasiDati-BagniniSalvataggio
-Progetto per una Base di Dati A.A. 2024/25
+Progetto per una Base di Dati A.A. 2024/25 Unibo - Campus di Cesena - Ingegneria e Scienze Informatiche
 
 # Descrizione 
 Si vuole realizzare un database per la gestione di un team di salvataggio.
